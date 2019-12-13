@@ -1,0 +1,19 @@
+.slider {
+  text-align: center;
+}
+
+.slider__items {
+  list-style: none;
+}
+
+.slider__item {
+  display: none;
+}
+
+.slider__item--active {
+  display: inline-block;
+}
+
+.slider__item img {
+  height: 400px;
+}
