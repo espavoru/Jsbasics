@@ -38,12 +38,15 @@ window.onload = () => {
 
       if (show !== null) return;
 
-      elem.className = "promoPanel";
+      elem.className = "promoPanel" + " " + "promoPanel__" + options.id;
       elem.textContent = options.content;
 
       elem.addEventListener("click", () => {
         this.hidden = true;
+        sessionStorage.setItem("show_" + options.id, false);
       });
     }
+
+    this.getElem = getElem;
   }
 };

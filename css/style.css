@@ -1,0 +1,17 @@
+.promoPanel {
+  padding: 20px;
+  text-align: center;
+
+  background-color: #eee;
+  font-size: 2em;
+
+  cursor: pointer;
+}
+
+.promoPanel__default {
+  background-color: lightgreen;
+}
+
+.promoPanel__warning {
+  background-color: coral;
+}
