@@ -1,52 +1,113 @@
-window.onload = () => {
-  let panel = new Panel({
-    content:
-      "Maecenas vehicula, nibh eget vehicula dictum, orci turpis tincidunt ligula",
-    id: "default"
+// https://gist.github.com/espavoru/8900fb619c83d6ea6a72beb3d118532e
+jQuery(() => {
+  let grid = new Grid({
+    header: "Header",
+    menu: "Menu",
+    "promo-1": "Promo 1",
+    "promo-2": "Promo 2"
   });
 
-  document.querySelector("#app").appendChild(panel.getElem());
+  $("#app").append(grid.getElem());
 
-  let panelW = new Panel({
-    content:
-      "Donec lobortis malesuada pellentesque. Etiam mattis ac libero a vestibulum",
-    id: "warning"
-  });
-  document.querySelector("#app").appendChild(panelW.getElem());
+  function Grid(options) {
+    let $elem,
+      $header,
+      $container,
+      $topHeader,
+      colorMain,
+      colorSuccess,
+      colorWarning,
+      $midHeader,
+      $promoHeader,
+      $promoHeaderRight,
+      $clearfix,
+      $main,
+      $contentColumn,
+      $contentColumnMid,
+      $contentColumnRight,
+      $footer,
+      $style;
 
-  /**
-   * Create promo panel
-   */
-  function Panel(options) {
-    let elem, show;
+    colorWarning = "#ca3838";
+    colorMain = "#389dca";
 
-    /**
-     * Get elem
-     */
     function getElem() {
-      !elem ? render() : null;
+      !$elem ? render() : null;
 
-      return elem;
+      return $elem;
     }
 
-    /**
-     * Render element
-     */
     function render() {
-      show = sessionStorage.getItem("show_" + options.id);
-      elem = document.createElement("div");
+      $elem = $("<div>").addClass("floatGrid");
 
-      if (show !== null) return;
+      $style = $(
+        "<style>.floatGrid > * > * {cursor: pointer;} \n\n" +
+          " * {box-sizing: border-box;}</style>"
+      ).appendTo($elem);
 
-      elem.className = "promoPanel" + " " + "promoPanel__" + options.id;
-      elem.textContent = options.content;
+      $clearfix = $("<div>")
+        .addClass("clearfix")
+        .css({
+          clear: "both"
+        });
 
-      elem.addEventListener("click", () => {
-        this.hidden = true;
-        sessionStorage.setItem("show_" + options.id, false);
-      });
+      $header = $("<header>")
+        .addClass("mainHeader")
+        .css({
+          paddingTop: "10px",
+          paddingBottom: "10px",
+          backgroundColor: "#333"
+        })
+        .appendTo($elem);
+
+      $container = $("<div>")
+        .addClass("container")
+        .css({
+          maxWidth: "90%",
+          margin: "0 auto"
+        })
+        .appendTo($header);
+
+      $topHeader = $("<div>")
+        .addClass("mainHeader__topHeader")
+        .text(options.header || "Top header example")
+        .css({
+          minHeight: "50px",
+          marginBottom: "10px",
+          padding: "10px",
+          backgroundColor: colorWarning
+        })
+        .appendTo($container);
+
+      $midHeader = $("<div>")
+        .addClass("mainHeader__midHeader")
+        .css({
+          minHeight: "50px",
+          marginBottom: "10px",
+          backgroundColor: colorMain
+        })
+        .text(options.menu)
+        .appendTo($header);
+
+      $container
+        .clone()
+        .empty()
+        .css({
+          padding: "10px"
+        })
+        .appendTo($midHeader);
+
+      $promoHeader = $("<div>")
+        .addClass("mainHeader__promo")
+        .css({
+          float: "left",
+          width: "46,5%",
+          minHeight: "100px",
+          marginRight: "2%",
+          padding: "10px",
+          backgroundColor: colorWarning
+        })
+        .text(options["promo-1"] || "Some promo 1 example");
     }
-
-    this.getElem = getElem;
   }
-};
+});
