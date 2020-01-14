@@ -1,113 +1,57 @@
-// https://gist.github.com/espavoru/8900fb619c83d6ea6a72beb3d118532e
-jQuery(() => {
-  let grid = new Grid({
-    header: "Header",
-    menu: "Menu",
-    "promo-1": "Promo 1",
-    "promo-2": "Promo 2"
+window.onload = () => {
+  let flex = new Flex({
+    columns: 6,
+    quont: 12,
+    text: [
+      "Mauris eget vulputate felis. Phasellus sit amet leo sed tellus vulputate",
+      "Voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos",
+      "Qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum",
+      "Auia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi.",
+      "Sed erat nibh, imperdiet in ornare et, feugiat nec diam. Morbi imperdiet.",
+      "Auia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi."
+    ]
   });
 
-  $("#app").append(grid.getElem());
+  document.querySelector("#app").appendChild(flex.getElem());
 
-  function Grid(options) {
-    let $elem,
-      $header,
-      $container,
-      $topHeader,
-      colorMain,
-      colorSuccess,
-      colorWarning,
-      $midHeader,
-      $promoHeader,
-      $promoHeaderRight,
-      $clearfix,
-      $main,
-      $contentColumn,
-      $contentColumnMid,
-      $contentColumnRight,
-      $footer,
-      $style;
-
-    colorWarning = "#ca3838";
-    colorMain = "#389dca";
+  function Flex(options) {
+    let elem, wrap, items, item, imgWrap, img, text, after, css, style, col;
 
     function getElem() {
-      !$elem ? render() : null;
+      if (!elem) render();
 
-      return $elem;
+      return elem;
     }
 
     function render() {
-      $elem = $("<div>").addClass("floatGrid");
+      elem = document.createElement("div");
+      elem.className = "flexGrid";
 
-      $style = $(
-        "<style>.floatGrid > * > * {cursor: pointer;} \n\n" +
-          " * {box-sizing: border-box;}</style>"
-      ).appendTo($elem);
+      wrap = document.createElement("div");
+      wrap.className = "flexGrid__wrapper";
+      wrap.style.margin = "10px";
+      elem.appendChild(wrap);
 
-      $clearfix = $("<div>")
-        .addClass("clearfix")
-        .css({
-          clear: "both"
-        });
+      items = document.createElement("div");
+      items.className = "flexGrid__items";
+      items.style.display = "flex";
+      items.style.flexFlow = "row wrap";
+      items.style.margin = "0 -10px";
+      items.style.color = "white";
+      wrap.appendChild(items);
 
-      $header = $("<header>")
-        .addClass("mainHeader")
-        .css({
-          paddingTop: "10px",
-          paddingBottom: "10px",
-          backgroundColor: "#333"
-        })
-        .appendTo($elem);
+      for (let i = 0; i < options.quont; i++) {
+        item = document.createElement("div");
+        item.className = "flexGrid__item";
 
-      $container = $("<div>")
-        .addClass("container")
-        .css({
-          maxWidth: "90%",
-          margin: "0 auto"
-        })
-        .appendTo($header);
+        col = options.columns || 3;
 
-      $topHeader = $("<div>")
-        .addClass("mainHeader__topHeader")
-        .text(options.header || "Top header example")
-        .css({
-          minHeight: "50px",
-          marginBottom: "10px",
-          padding: "10px",
-          backgroundColor: colorWarning
-        })
-        .appendTo($container);
-
-      $midHeader = $("<div>")
-        .addClass("mainHeader__midHeader")
-        .css({
-          minHeight: "50px",
-          marginBottom: "10px",
-          backgroundColor: colorMain
-        })
-        .text(options.menu)
-        .appendTo($header);
-
-      $container
-        .clone()
-        .empty()
-        .css({
-          padding: "10px"
-        })
-        .appendTo($midHeader);
-
-      $promoHeader = $("<div>")
-        .addClass("mainHeader__promo")
-        .css({
-          float: "left",
-          width: "46,5%",
-          minHeight: "100px",
-          marginRight: "2%",
-          padding: "10px",
-          backgroundColor: colorWarning
-        })
-        .text(options["promo-1"] || "Some promo 1 example");
+        item.style.flex = "1 1 calc(" + 100 / col + "% - 27px)";
+        item.style.minWidth = "260px";
+        item.style.margin = "10px";
+        item.style.padding = "3px";
+        item.style.backgroundColor = "#222";
+      }
     }
   }
-});
+};
