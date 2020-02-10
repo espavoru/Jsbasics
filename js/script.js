@@ -1,57 +1,47 @@
 window.onload = () => {
-  let flex = new Flex({
-    columns: 6,
-    quont: 12,
-    text: [
-      "Mauris eget vulputate felis. Phasellus sit amet leo sed tellus vulputate",
-      "Voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos",
-      "Qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum",
-      "Auia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi.",
-      "Sed erat nibh, imperdiet in ornare et, feugiat nec diam. Morbi imperdiet.",
-      "Auia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi."
-    ]
+  let head, santa, nyTree, header, headerTop, headerLinks, shopContacts;
+
+  head = document.querySelector("head");
+  header = document.querySelector("header");
+  headerTop = document.querySelector(".header-top");
+  headerLinks = document.querySelector(".header-top a");
+  shopContacts = document.querySelector(".hmc-numbers");
+
+  header.style.position = "relative";
+  header.style.backgroundImage =
+    "url(https://jail.fwdcdn.com/frame/img/ny-banner.png)";
+  header.style.backgroundRepeat = "no-repeat";
+  header.style.backgroundPosition = "top center";
+
+  headerTop.style.background = "none";
+
+  headerLinks.forEach(element => {
+    element.style.color = "#fff";
   });
 
-  document.querySelector("#app").appendChild(flex.getElem());
+  santa = document.createElement("div");
+  santa.className = "santa";
+  santa.style.position = "absolute";
+  santa.style.top = 0;
+  santa.style.left = "10px";
+  santa.style.width = "230px";
+  santa.style.height = "90px";
+  santa.style.backgroundImage =
+    "url(https://jail.fwdcdn.com/frame/img/santa-with-gifts.png)";
+  header.append(santa);
 
-  function Flex(options) {
-    let elem, wrap, items, item, imgWrap, img, text, after, css, style, col;
+  nyTree = document.createElement("div");
+  nyTree.className = "nyTree";
+  nyTree.style.position = "absolute";
+  nyTree.style.top = 0;
+  nyTree.style.right = "7%";
+  nyTree.style.width = "285px";
+  nyTree.style.height = "90px";
+  nyTree.style.backgroundImage =
+    "url(https://jail.fwdcdn.com/frame/img/ny-tree.png)";
+  header.append(nyTree);
 
-    function getElem() {
-      if (!elem) render();
-
-      return elem;
-    }
-
-    function render() {
-      elem = document.createElement("div");
-      elem.className = "flexGrid";
-
-      wrap = document.createElement("div");
-      wrap.className = "flexGrid__wrapper";
-      wrap.style.margin = "10px";
-      elem.appendChild(wrap);
-
-      items = document.createElement("div");
-      items.className = "flexGrid__items";
-      items.style.display = "flex";
-      items.style.flexFlow = "row wrap";
-      items.style.margin = "0 -10px";
-      items.style.color = "white";
-      wrap.appendChild(items);
-
-      for (let i = 0; i < options.quont; i++) {
-        item = document.createElement("div");
-        item.className = "flexGrid__item";
-
-        col = options.columns || 3;
-
-        item.style.flex = "1 1 calc(" + 100 / col + "% - 27px)";
-        item.style.minWidth = "260px";
-        item.style.margin = "10px";
-        item.style.padding = "3px";
-        item.style.backgroundColor = "#222";
-      }
-    }
-  }
+  shopContacts.forEach(element => {
+    element.style.backgroundColor = "rgba(255, 255, 255, 0.8)";
+  });
 };
